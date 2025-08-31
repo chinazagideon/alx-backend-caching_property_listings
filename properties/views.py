@@ -11,5 +11,5 @@ def property_list(request):
     """
     A view to display all the properties
     """
-    properties = Property.objects.all()
-    return JsonResponse({'properties': list(properties)})
+    data = Property.objects.all()
+    return JsonResponse({'properties': list(data)})

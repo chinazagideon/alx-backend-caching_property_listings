@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django-redis',
+    # 'django-redis',
     'properties',
 
 ]
@@ -85,11 +85,12 @@ WSGI_APPLICATION = 'alx_backend_caching_property_listings.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': BASE_DIR / 'db.postgresql',
+        'NAME': os.getenv('POSTGRES_DB', default='alxbackendcachingpropertylistings'),
         'USER': os.getenv('POSTGRES_USER', default='postgres'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD', default='postgres'),
         'HOST': os.getenv('POSTGRES_HOST', default='localhost'),
         'PORT': os.getenv('POSTGRES_PORT', default='5432'),
+        'CONN_MAX_AGE': int(os.getenv('POSTGRES_CONN_MAX_AGE', '60')),
     }
 }
 #redis configuration

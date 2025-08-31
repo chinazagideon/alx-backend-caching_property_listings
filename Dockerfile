@@ -4,7 +4,7 @@ FROM python:3.10-slim as builder
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV DJANGO_SETTINGS_MODULE=alxbackendcachingpropertylistings.settings
+ENV DJANGO_SETTINGS_MODULE=alx_backend_caching_property_listings.settings
 
 # Install build dependencies
 RUN apt-get update \
@@ -37,7 +37,7 @@ FROM python:3.10-slim as production
 # Set environment variables for production
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV DJANGO_SETTINGS_MODULE=alxbackendcachingpropertylistings.settings
+ENV DJANGO_SETTINGS_MODULE=alx_backend_caching_property_listings.settings
 ENV DEBUG=False
 ENV DJANGO_DEBUG=False
 
@@ -68,7 +68,7 @@ RUN adduser --disabled-password --gecos '' appuser \
 USER appuser
 
 # Collect static files
-RUN python manage.py collectstatic --noinput --settings=alxbackendcachingpropertylistings.settings || true
+RUN python manage.py collectstatic --noinput --settings=alx_backend_caching_property_listings.settings || true
 
 # Expose port 8000
 EXPOSE 8000
@@ -78,4 +78,4 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8000/health/ || exit 1
 
 # Production command with Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "--timeout", "120", "alxbackendcachingpropertylistings.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "--timeout", "120", "alx_backend_caching_property_listings.wsgi:application"]

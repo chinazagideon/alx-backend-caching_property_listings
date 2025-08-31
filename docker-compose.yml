@@ -48,7 +48,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
   postgres:
-    image: postgres:15
+    image: postgres:latest
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -63,8 +63,11 @@ services:
     ports:
       - "6379:6379"
     restart: unless-stopped
+    volumes:
+      - redis_data:/data
 volumes:
   db_data:
   static_volume:
   media_volume: 
   postgres_data:
+  redis_data:

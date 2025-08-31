@@ -1,9 +1,9 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.core.cache import cache
 from .models import Property
 
-@receiver(post_save, sender=Property)
+@receiver(post_save, post_delete, sender=Property)
 def invalidate_property_cache_on_save(sender, instance, **kwargs):
     """
     Invalidate the 'all_properties' cache key when a new Property is created or updated

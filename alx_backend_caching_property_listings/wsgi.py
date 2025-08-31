@@ -1,5 +1,5 @@
 """
-WSGI config for alxbackendcachingpropertylistings project.
+WSGI config for alx_backend_caching_property_listings project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'alxbackendcachingpropertylistings.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'alx_backend_caching_property_listings.settings')
 
 application = get_wsgi_application()

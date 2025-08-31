@@ -1,5 +1,5 @@
 """
-ASGI config for alxbackendcachingpropertylistings project.
+ASGI config for alx_backend_caching_property_listings project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'alxbackendcachingpropertylistings.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'alx_backend_caching_property_listings.settings')
 
 application = get_asgi_application()

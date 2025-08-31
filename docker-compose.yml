@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - DJANGO_SETTINGS_MODULE=alxbackendcachingpropertylistings.settings
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=alxbackendcachingpropertylistings
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - STATIC_ROOT=/app/staticfiles
+      - STATIC_URL=/static/
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=alxbackendcachingpropertylistings
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+    depends_on:
+      - db
+      - postgres
+      - redis
+    restart: unless-stopped
+    command: >
+      sh -c "python3 manage.py migrate &&
+             python3 manage.py collectstatic --noinput &&
+             python3 manage.py runserver 0.0.0.0:8000" && 
+             
+
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=alxbackendcachingpropertylistings
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DB=alxbackendcachingpropertylistings
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    volumes:
+      - db_data:/var/lib/mysql
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=alxbackendcachingpropertylistings
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+volumes:
+  db_data:
+  static_volume:
+  media_volume: 
+  postgres_data:

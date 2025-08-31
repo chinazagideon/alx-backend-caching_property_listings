@@ -23,9 +23,8 @@ def get_redis_cache_metrics():
         keyspace_misses = int(info['keyspace_misses'])
         total_requests = keyspace_misses + keyspace_hits
 
-        hit_ratio = 0
-        if total_requests > 0 :
-            hit_ratio = (keyspace_hits / total_requests) * 100
+        hit_ratio = (keyspace_hits / total_requests) * 100 if total_requests > 0 else 0
+        
     except (KeyError, ValueError):
         hit_ratio = 0
         total_requests = 0
@@ -33,10 +32,10 @@ def get_redis_cache_metrics():
         keyspace_misses = 0
     
     #log the metrics
-    logging.info(f'Redis cache Metrics:')
-    logging.info(f"  - Keyspace Hits: {keyspace_hits}")
-    logging.info(f"  - Keyspace Misses: {keyspace_misses}")
-    logging.info(f"  - Hit Ratio: {hit_ratio:.2f}%" if isinstance(hit_ratio, float) else f"  - Hit Ratio: {hit_ratio}")
+    logging.error(f'Redis cache Metrics:')
+    logging.error(f"  - Keyspace Hits: {keyspace_hits}")
+    logging.error(f"  - Keyspace Misses: {keyspace_misses}")
+    logging.error(f"  - Hit Ratio: {hit_ratio:.2f}%" if isinstance(hit_ratio, float) else f"  - Hit Ratio: {hit_ratio}")
 
     return {
         'keyspace_hits': keyspace_hits,

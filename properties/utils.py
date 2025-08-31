@@ -1,7 +1,7 @@
 from django.core.cache import cache
 from .models import Property
 import os
-import logging
+import logging as logger
 from django_redis import get_redis_connection
 from django.core.cache import cache
 
@@ -32,10 +32,10 @@ def get_redis_cache_metrics():
         keyspace_misses = 0
     
     #log the metrics
-    logging.error(f'Redis cache Metrics:')
-    logging.error(f"  - Keyspace Hits: {keyspace_hits}")
-    logging.error(f"  - Keyspace Misses: {keyspace_misses}")
-    logging.error(f"  - Hit Ratio: {hit_ratio:.2f}%" if isinstance(hit_ratio, float) else f"  - Hit Ratio: {hit_ratio}")
+    logger.error(f'Redis cache Metrics:')
+    logger.error(f"  - Keyspace Hits: {keyspace_hits}")
+    logger.error(f"  - Keyspace Misses: {keyspace_misses}")
+    logger.error(f"  - Hit Ratio: {hit_ratio:.2f}%" if isinstance(hit_ratio, float) else f"  - Hit Ratio: {hit_ratio}")
 
     return {
         'keyspace_hits': keyspace_hits,
